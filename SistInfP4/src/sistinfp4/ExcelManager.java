@@ -71,7 +71,7 @@ public class ExcelManager {
         try {
             FileInputStream ficheroExcel = new FileInputStream(new File(archivo));
             XSSFWorkbook libro = new XSSFWorkbook(ficheroExcel);
-            XSSFSheet hoja = libro.getSheetAt(2);
+            XSSFSheet hoja = libro.getSheetAt(2); 
             Row row;
             for (int i = 1; i < hoja.getLastRowNum() + 1; i++) {
                 row = hoja.getRow(i);
@@ -89,6 +89,60 @@ public class ExcelManager {
         
         return trienios;
     }//fin del método getRetenciones
+    
+    //Categorias Salario Base
+    public static Map getCategoriasSalarioBase(String archivo){
+        Map<String, Double> categoriasI = new HashMap<>();
+        try {
+            FileInputStream ficheroExcel = new FileInputStream(new File(archivo));
+            XSSFWorkbook libro = new XSSFWorkbook(ficheroExcel);
+            XSSFSheet hoja = libro.getSheetAt(1); 
+            Row row;
+            
+            for (int i = 1; i < hoja.getLastRowNum() + 1; i++){
+                row = hoja.getRow(i);
+                if (row!=null){
+                    Cell cell = row.getCell(COL_CATEGORIAHOJA2);
+                    Cell cell2 = row.getCell(COL_SALARIOBASE);
+                    categoriasI.put((String)cell.getNumericCellValue(),(double)cell2.getNumericCellValue());
+                }
+            }
+            libro.close();
+            ficheroExcel.close();
+            
+        } catch (Exception ex) {
+                Logger.getLogger(ExcelManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return categoriasI;
+        
+    }
+    
+    //Categorias Complementos
+    public static Map getCategoriasComplementos(String archivo){
+        Map<String, Double> categoriasCompl = new HashMap<>();
+        try {
+            FileInputStream ficheroExcel = new FileInputStream(new File(archivo));
+            XSSFWorkbook libro = new XSSFWorkbook(ficheroExcel);
+            XSSFSheet hoja = libro.getSheetAt(1); 
+            Row row;
+            
+            for (int i = 1; i < hoja.getLastRowNum() + 1; i++){
+                row = hoja.getRow(i);
+                if (row!=null){
+                    Cell cell = row.getCell(COL_CATEGORIAHOJA2);
+                    Cell cell2 = row.getCell(COL_COMPLEMENTOS);
+                    categoriasCompl.put((String)cell.getNumericCellValue(),(double)cell2.getNumericCellValue());
+                }
+            }
+            libro.close();
+            ficheroExcel.close();
+            
+        } catch (Exception ex) {
+                Logger.getLogger(ExcelManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return categoriasCompl;
+        
+    }
     
     public static Map getRetenciones(String archivo){
         Map<Integer,Double> retenciones = new HashMap<>();
@@ -302,7 +356,7 @@ public class ExcelManager {
         nom.setFecha(this.date);
         
 
-        //Trienios 
+        //Trienios numero
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
         LocalDate dateExpNomina = LocalDate.parse(this.date, formatter);
         LocalDate dateAltaLaboral = LocalDate.parse(trbj.fechaAltaLaboral, formatter);
@@ -310,6 +364,11 @@ public class ExcelManager {
         int numeroTrienios = periodo.getYears() / 3;
         nom.setTrienios(numeroTrienios);
         //Una vez tenemos los trienios ay que sacar el importe mediante el getTrienios()
+        
+        
+        //Importe salario mes
+        String categ = trbj.getCategoria();
+        bouble importeCategorias = categ
         
         
         
