@@ -335,56 +335,10 @@ public class ExcelManager {
             System.out.println(e.getMessage());
         }
     }//Fin del método setTrabajador
-    //Calculo de las nominas co todos sus datos
     
-    public void totalNominas(Trabajador trbj){
-        Nomina nom = new Nomina();
-        //Creamos una lista de nominas
-        ArrayList<Nomina> listaNominas = new ArrayList<Nomina>();
-        
-        //Id, lo generamos nosotros
-        int idD=0;
-        if (listaNominas.isEmpty()){
-        idD = 1;
-        } else {
-            idD = listaNominas.size();
-        }
-        nom.setId(idD);
-        
-        //Añadimos el mes y el año
-        //Gestionar el pedir fecha y pasarlo por aqúi
-        nom.setFecha(this.date);
-        
-
-        //Trienios numero
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
-        LocalDate dateExpNomina = LocalDate.parse(this.date, formatter);
-        LocalDate dateAltaLaboral = LocalDate.parse(trbj.fechaAltaLaboral, formatter);
-        Period periodo = Period.between(dateAltaLaboral, dateExpNomina);
-        int numeroTrienios = periodo.getYears() / 3;
-        nom.setTrienios(numeroTrienios);
-        //Una vez tenemos los trienios ay que sacar el importe mediante el getTrienios()
-        
-        
-        //Importe salario mes
-        String categ = trbj.getCategoria();
-        bouble importeCategorias = categ
-        
-        
-        
-        
-        
-    }
-   
+ 
     
     
-    //Printear por pantalla los datos de las nóminas de los empleados ON IT
-    
-    public void printearNominasTrabajadores(){
-        for (Nomina nominas: this.listaNominas){
-            Trabajador trabaj = 
-        }
-    }
   
     
 

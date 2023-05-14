@@ -9,6 +9,10 @@ import java.io.File;
 import java.math.BigInteger;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -302,5 +306,75 @@ public class SistInfP4 {
 
         return answer;
     }
+    
+       //Pedimos fecha al usuario
+    public String pedirFecha(){
+        System.out.println("Escribe la fecha para la que deseas general las nóminas");
+        Scanner respuesta = new Scanner(System.in);
+        String date = respuesta.nextLine();
+        return date;
+        
+    
+    }
+    
+      //Printear por pantalla los datos de las nóminas de los empleados ON IT
+    
+    public void printearNominasTrabajadores(){
+        for (Nomina nominas: this.listaNominas){
+            Trabajador trabaj = 
+        }
+    }
+  
+    
+    //Calculo de las nominas con todos sus datos
+    
+    public void totalNominas(Trabajador trbj){
+        Nomina nom = new Nomina();
+        //Creamos una lista de nominas
+        ArrayList<Nomina> listaNominas = new ArrayList<Nomina>();
+        //Fecha con la que funcionamos:
+        String date = pedirFecha();
+        
+        //Id, lo generamos nosotros
+        int idD=0;
+        if (listaNominas.isEmpty()){
+        idD = 1;
+        } else {
+            idD = listaNominas.size();
+        }
+        nom.setId(idD);
+        
+        //Añadimos el mes y el año
+        //Gestionar el pedir fecha y pasarlo por aqúi
+        nom.setFecha(date);
+        
+
+        //Trienios numero
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+        LocalDate dateExpNomina = LocalDate.parse(date, formatter);
+        LocalDate dateAltaLaboral = LocalDate.parse(trbj.fechaAltaLaboral, formatter);
+        Period periodo = Period.between(dateAltaLaboral, dateExpNomina);
+        int numeroTrienios = periodo.getYears() / 3;
+        nom.setTrienios(numeroTrienios);
+        //Una vez tenemos los trienios ay que sacar el importe mediante el getTrienios()
+        
+        
+        //Importe salario mes
+        String categ = trbj.getCategoria();
+        Map<String, Double> categoriasImSalB = new HashMap<>();
+        
+        if (){
+            
+        }
+        double importeCategorias = 
+        
+        
+        
+        
+        
+    }
+    
+   
+    
 }
 
